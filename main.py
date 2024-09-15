@@ -34,3 +34,36 @@ def load_and_preprocess_data(filepath):
 
     X_processed = preprocessor.fit_transform(X)
     return X_processed, y, preprocessor
+
+# Train model
+def train_model(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+
+    print(f"Model score: {model.score(X_test, y_test)}")
+    return model
+
+# Save model and preprocessor
+def save_model(model, preprocessor):
+    joblib.dump(model, 'house_price_model.pkl')
+    joblib.dump(preprocessor, 'preprocessor.pkl')
+
+# Load model and preprocessor
+def load_model():
+    model = joblib.load('house_price_model.pkl')
+    preprocessor = joblib.load('preprocessor.pkl')
+    return model, preprocessor
+
+# Predict house price
+def predict_price(features, model, preprocessor):
+    features = np.array(features).reshape(1, -1)
+    processed_features = preprocessor.transform(features)
+    prediction = model.predict(processed_features)
+    return prediction[0]
+
+# Main script (Train and save the model)
+if __name__ == "__main__":
+    X, y, preprocessor = load_and_preprocess_data('house_prices.csv')
+    model = train_model(X, y)
+    save_model(model, preprocessor)
