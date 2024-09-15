@@ -10,12 +10,11 @@ import joblib
 
 # Load and preprocess data
 def load_and_preprocess_data(filepath):
-<<<<<<< HEAD
+
     filepath = "C:/Users/DELL/Documents/GitHub/MLOPs_Assignment1/House_Prices.csv"
 
-=======
     filepath= "C:/Users/DELL/Downloads/archive (1)/House_Prices.csv"
->>>>>>> 64496404de2fe93277205807f33764273537d179
+
     data = pd.read_csv(filepath)
 
     X = data.drop(columns=['Price'])  # 'Price' is the target column
@@ -38,9 +37,9 @@ def load_and_preprocess_data(filepath):
             ('cat', categorical_transformer, categorical_features)])
 
     X_processed = preprocessor.fit_transform(X)
-<<<<<<< HEAD
+
     return X_processed, y, preprocessor
-=======
+
     return X_processed, y, preprocessor
 
 # Train model
@@ -75,4 +74,4 @@ if __name__ == "__main__":
     X, y, preprocessor = load_and_preprocess_data('house_prices.csv')
     model = train_model(X, y)
     save_model(model, preprocessor)
->>>>>>> 64496404de2fe93277205807f33764273537d179
+
